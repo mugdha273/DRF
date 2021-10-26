@@ -9,10 +9,23 @@ from rest_framework.response import Response
 from .serializer import PersonSerializers
 
 class PersonView(APIView):
-    def get(self, request):
+    def get(self, request, format= None):
         data= Person.objects.all()
         serializer = PersonSerializers(data, many = True)
         return Response(serializer.data)
+    def post(self,request,format= None):
+        
+        try:
+
+            serializer = PersonSerializers(data = request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            else:
+                return Response(serializer.errors)
+            
+        except Exception as e:
+            return Response(serializer.errors)
 
 # Create your views here.
 # global data
