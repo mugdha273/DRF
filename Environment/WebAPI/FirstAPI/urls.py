@@ -4,5 +4,6 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    path('', views.PersonView.as_view())
+    path('', views.PersonView.as_view()),
+    path('add/',views.PersonCreateListAPI.as_view()),
 ]
